@@ -2,18 +2,251 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Today's Tasks</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <h1>Due Today!</h1>
+    <div id="tasks">
+      <script> 
+        const _events = require('electron').remote.getCurrentWindow().custom_events;
+        for(var i=0; i <_events.length; i++ )
+        document.write(
+          _events[i].desc + "\n"
+        )
+        </script>  
+    </div> 
+    <link rel="stylesheet" href="public/bower_components/bootstrap/dist/css/bootstrap.css">
+    <div class="container">
+      <div class="row" style="padding-bottom:10px">
+        <div class="col">
+          S
+        </div>
+        <div class="col">
+          M
+        </div>
+        <div class="col">
+          T
+        </div>
+        <div class="col">
+          W
+        </div>
+        <div class="col">
+          H
+        </div>
+        <div class="col">
+          F
+        </div>
+        <div class="col">
+          S
+        </div>
+    </div>
+    <div class="row day">
+        <div class="col" onclick="openModal()" id="1">
+        </div>
+        <div class="col" id="2">
+        </div>
+        <div class="col" id="3">
+        </div>
+        <div class="col" id="4">
+        </div>
+        <div class="col" id="5">
+        </div>
+        <div class="col" id="6">
+        </div>
+        <div class="col" id="7">
+        </div>
+    </div>
+    <div class="row day">
+        <div class="col" id="8">
+        </div>
+        <div class="col" id="9">
+        </div>
+        <div class="col" id="10">
+        </div>
+        <div class="col" id="11">
+        </div>
+        <div class="col" id="12">
+        </div>
+        <div class="col" id="13">
+        </div>
+        <div class="col" id="14">
+        </div>
+    </div>
+    <div class="row day">
+        <div class="col" id="15">
+        </div>
+        <div class="col" id="16">
+        </div>
+        <div class="col" id="17">
+        </div>
+        <div class="col" id="18">
+        </div>
+        <div class="col" id="19">
+        </div>
+        <div class="col" id="20">
+        </div>
+        <div class="col" id="21">
+        </div>
+    </div>
+    <div class="row day">
+        <div class="col" id="22">
+        </div>
+        <div class="col" id="23">
+        </div>
+         <div class="col" id="24">
+        </div>
+        <div class="col" id="25">
+        </div>
+        <div class="col" id="26">
+        </div>
+        <div class="col" id="27">
+        </div>
+        <div class="col" id="28">
+        </div>
+    </div>
+    <div class="row day">
+        <div class="col" id="29">
+        </div>
+        <div class="col" id="30">
+        </div>
+         <div class="col" id="31">
+        </div>
+        <div class="col" id="32">
+        </div>
+        <div class="col" id="33">
+        </div>
+        <div class="col" id="34">
+        </div>
+        <div class="col" id="35">
+        </div>
+    </div>
+    <div class="row day">
+        <div class="col" id="36">
+        </div>
+        <div class="col" id="37">
+        </div>
+         <div class="col" id="38">
+        </div>
+        <div class="col" id="39">
+        </div>
+        <div class="col" id="40">
+        </div>
+        <div class="col" id="41">
+        </div>
+        <div class="col" id="42">
+        </div>
+    </div>
 
+
+
+
+    </div>
     <script>
       // You can also require other files to run in this process
       require('./renderer.js')
+      let today = Date().split(" ")
+      function openModal(){
+        var remote = require('electron').remote
+        let win = new remote.BrowserWindow({
+        height: 600,
+        width: 800,
+        parent: remote.getCurrentWindow(),
+        modal: true,
+        frame: false 
+       })
+       win.loadFile("day_view.html")
+       win = null
+      }
+
+
+      function populateCalendarNumbers(){
+        const Months = 
+        {
+          "Jan" : 1  ,
+          "Feb" : 2  ,
+          "Mar" : 3  ,
+          "Apr" : 4  ,
+          "May" : 5  ,
+          "Jun" : 6  ,
+          "Jul" : 7  ,
+          "Aug" : 8  ,
+          "Sep" : 9  ,
+          "Oct" : 10 ,
+          "Nov" : 11 ,
+          "Dec" : 12 
+        }
+
+        const FirstDay = 
+        {
+            1 : "Sun",
+            2 : "Mon",
+            3 : "Tue",
+            4 : "Wed",
+            5 : "Thu",
+            6 : "Fri",
+            7 : "Sat"
+        }
+        //To reverse search days to month strings
+        function getKeyByValue(object, value) {
+          return Object.keys(object).find(key => object[key] === value);
+        }
+        const dateStr = Months[getMonth()]+"/1/"+getYear()
+        console.log(dateStr)
+        let today_calendar = new Date(dateStr)
+        today_calendar.setMonth(3)
+        console.log(today_calendar)
+       console.log(today_calendar.getDay())
+        console.log("this month we start at " + FirstDay[today_calendar.getDay()+1])
+        let current_day_count = 1
+        //EXCUUUSE ME
+        for(current_day_count; 
+            current_day_count < new Date(today_calendar.getFullYear(),today_calendar.getMonth(),0).getDate() + 1; 
+            current_day_count++){
+          document.getElementById(today_calendar.getDay()+current_day_count).innerHTML = current_day_count
+        }
+        /*
+        if(current_day_count < 37 ){
+          for(current_day_count; current_day_count < 43; current_day_count++){
+            document.getElementById(today_calendar.getDay()+current_day_count).style.display = "none"
+          }
+        }
+
+          */
+
+
+
+
+      }
+
+
+      function getDayNum(){
+        return today[2]
+      }
+      function getDayStr(){
+        return today[0]
+      }
+      function getDayNum(){
+        return today[2]
+      }
+      function getMonth(){
+        return today[1]
+      }
+      function getYear(){
+        return today[3]
+      }      
+
+
     </script>
   </body>
+ <style>
+    .row {
+      background: #f8f9fa;
+    }
+    .col {
+      border: solid 1px #6c757d;
+    }
+    .day{
+      height: 125px;
+    }
+      </style>
 </html>

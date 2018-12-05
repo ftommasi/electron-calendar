@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+<div style="border: 5px black" >
+  <p > TAB 1 </p>
+  
+  <form>
+    <input type="textarea" rows="8" cols="80">
+    <br/>
+
+    <button onclick="submitTasks()">Insert Day's Recap</button>
+    <br/>
+    <input type="radio" name="Good" value="1" checked>Good</input> 
+    <br/>
+    <input type="radio" name="Meh" value="0">Meh</input> 
+    <br/>
+    <input type="radio" name="Bad" value="-1">Bad</input> 
+    <br/>
+  </form>
+
+  <p > TAB 2 </p>
+</div>
+  <script>
+    function submitTasks(){
+      modal_win = require("electron").remote.getCurrentWindow()
+      modal_win.close() 
+    }
+  </script>
+<style>
+  .row {
+      background: #f8f9fa;
+    }
+    .col {
+      border: solid 1px #6c757d;
+    }
+    .day{
+      height: 125px;
+    }
+      </style>
+</html>
+

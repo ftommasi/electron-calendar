@@ -1,18 +1,20 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
+var todaysEvents 
+  todaysEvents = []
+  todaysEvents.push({month:"01",day:"10",repeat:"true",desc:"Pay Bank of America"})
+  todaysEvents.push({month:"01",day:"10",repeat:"false",desc:"Pick up Beef Jerkey"})
+ global.todaysEvents = todaysEvents
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
-
+  mainWindow = new BrowserWindow({width: 1600, height: 1200})
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
-
-  // Open the DevTools.
+  mainWindow.custom_events = todaysEvents
+   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
