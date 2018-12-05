@@ -146,6 +146,7 @@
       require('./renderer.js')
       let today = Date().split(" ")
       function openModal(){
+        populateCalendarNumbers()
         var remote = require('electron').remote
         let win = new remote.BrowserWindow({
         height: 600,
